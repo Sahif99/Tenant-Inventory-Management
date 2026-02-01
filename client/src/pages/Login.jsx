@@ -15,21 +15,29 @@ export default function Login() {
     password: "",
   });
   const [showPassword, setShowPassword] = useState(false);
-
+  const [showError, setShowError] = useState(false)
   const submit = async (e) => {
     e.preventDefault();
     const result = await dispatch(login(form));
     if (result.meta.requestStatus === "fulfilled") {
       navigate("/");
     }
+    else {
+      setShowError(true)
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-100 px-4">
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6 sm:p-8">
-        <h1 className="text-2xl font-semibold text-center mb-6">
-          Welcome Back
+        <h1 className="text-2xl font-semibold text-center mb-3">
+          Welcome to Inventory
         </h1>
+        {showError && (
+          <p className="text-md font-semibold font mono text-center text-red-500 mb-3">
+            Invalid email or password
+          </p>
+        )}
 
         <form onSubmit={submit} className="space-y-4">
           <div>

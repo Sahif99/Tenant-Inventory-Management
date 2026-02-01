@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchDashboard } from "../features/dashboard/dashboardSlice";
+import { fetchProducts } from "../features/products/productSlice";
 
 export default function Dashboard() {
   const dispatch = useDispatch();
@@ -9,7 +10,9 @@ export default function Dashboard() {
   const { list: products = [] } = useSelector((s) => s.products || {});
 
   useEffect(() => {
-    if (token) dispatch(fetchDashboard());
+    if (token)
+      dispatch(fetchDashboard());
+      dispatch(fetchProducts());
   }, [token, dispatch]);
 
   if (loading) return <p className="p-6">Loading dashboard...</p>;
